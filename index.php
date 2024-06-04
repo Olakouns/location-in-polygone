@@ -7,7 +7,6 @@
   </head>
   <body>
     <div id="map"></div>
-
     <main>
         <div id = "result" class="info-message">
             Please try scanning to see the result.

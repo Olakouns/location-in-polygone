@@ -50,7 +50,7 @@ function getGeolocation() {
       function (position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
-        console.log(position.coords);
+        // console.log(position.coords);
         // window.initMap = initMap;
 
         const resultColor = google.maps.geometry.poly.containsLocation(
@@ -73,6 +73,7 @@ function getGeolocation() {
           startInitiBarCode();
         } else {
           console.log("You are outside the polygon");
+          alert("We can't proceed with the barcode scanning. Because you are not in the showroom.");
           myDiv.innerText = "You are outside the polygon";
         }
       },
