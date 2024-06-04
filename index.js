@@ -7,16 +7,10 @@ async function initMap() {
     center: position,
     zoom: 20,
   });
-  
-
-  //   14.71179088936056 -17.440056693589785
-  // 14.71190828023492 -17.43994068804989
-  // 14.711778566557939 -17.439800542628863
-  // 14.711657932769146 -17.43992258313904
 
   const triangleCoords = [
     { lat: 14.71179088936056, lng: -17.440056693589785 },
-    { lat: 14.71190828023492, lng: -17.43994068804989 },
+    { lat: 14.711909888790986, lng: -17.43993906330747 },
     { lat: 14.711778566557939, lng: -17.439800542628863 },
     { lat: 14.711657932769146, lng: -17.43992258313904 },
   ];
@@ -30,13 +24,14 @@ async function initMap() {
   });
 
   //   console.log(bermudaTriangle);
-//   bermudaTriangle.setMap(map);
+  //   bermudaTriangle.setMap(map);
 
-//   google.maps.event.addListener(map, "click", (e) => {
-//     console.log(e.latLng.lat(), e.latLng.lng()); // 14.711088942846432 -17.43886922709955
-//   });
+  //   google.maps.event.addListener(map, "click", (e) => {
+  //     console.log(e.latLng.lat(), e.latLng.lng()); // 14.711088942846432 -17.43886922709955
+  //   });
 
-  google.maps.event.addListenerOnce(map, "tilesloaded", function () {
+  //   google.maps.event.addListenerOnce(map, "tilesloaded", function () {
+  google.maps.event.addListenerOnce(map, "idle", function () {
     console.log("Map is ready!");
     // new google.maps.Marker({
     //   position: position,
@@ -77,8 +72,8 @@ function getGeolocation() {
         if (resultColor) {
           startInitiBarCode();
         } else {
-            console.log("You are outside the polygon");
-            myDiv.innerText = "You are outside the polygon";
+          console.log("You are outside the polygon");
+          myDiv.innerText = "You are outside the polygon";
         }
       },
       function (error) {
@@ -90,8 +85,6 @@ function getGeolocation() {
     console.error("Geolocation is not supported by this browser.");
   }
 }
-
-
 
 function startInitiBarCode(params) {
   Quagga.init(
