@@ -4,7 +4,7 @@
 // locate you.
 let map, infoWindow, bermudaTriangle;
 // 14.71108245715983 -17.438867066467555
-const position = { lat: 14.71108245715983, lng: -17.438867066467555 };
+const position = { lat: 14.71179088936056, lng: -17.440056693589785 };
 async function initMap() {
   const google = await new Promise((resolve) => {
     if (window.google) {
@@ -18,14 +18,19 @@ async function initMap() {
 
   map = new google.maps.Map(document.getElementById("map"), {
     center: position,
-    zoom: 30,
+    zoom: 20,
   });
 
+//   14.71179088936056 -17.440056693589785
+// 14.71190828023492 -17.43994068804989
+// 14.711778566557939 -17.439800542628863
+// 14.711657932769146 -17.43992258313904
+
   const triangleCoords = [
-    { lat: 14.711096077152874, lng: -17.43889448462234 },
-    { lat: 14.71111845283765, lng: -17.438872021121842 },
-    { lat: 14.711085051452296, lng: -17.438838828785283 },
-    { lat: 14.71106235147876, lng: -17.438860957009656 },
+    { lat: 14.71179088936056, lng: -17.440056693589785 },
+    { lat: 14.71190828023492, lng: -17.43994068804989 },
+    { lat: 14.711778566557939, lng: -17.439800542628863 },
+    { lat: 14.711657932769146, lng: -17.43992258313904 },
   ];
   bermudaTriangle = new google.maps.Polygon({
     paths: triangleCoords,
@@ -51,10 +56,10 @@ async function initMap() {
     //   bermudaTriangle
     // );
 
-    // new google.maps.Marker({
-    //     position:  position,
-    //     map,
-    //   });
+    new google.maps.Marker({
+        position:  position,
+        map,
+      });
 
 
   
