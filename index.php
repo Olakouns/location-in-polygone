@@ -7,7 +7,7 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <div id="map"></div>
+    <div id="map" ></div>
 
     <main>
         <div id = "result" class="info-message">

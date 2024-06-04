@@ -1,7 +1,4 @@
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
+let myDiv = document.getElementById("result");
 let map, infoWindow, bermudaTriangle;
 // 14.71108245715983 -17.438867066467555
 const position = { lat: 14.71179088936056, lng: -17.440056693589785 };
@@ -10,6 +7,7 @@ async function initMap() {
     center: position,
     zoom: 20,
   });
+  
 
   //   14.71179088936056 -17.440056693589785
   // 14.71190828023492 -17.43994068804989
@@ -32,18 +30,18 @@ async function initMap() {
   });
 
   //   console.log(bermudaTriangle);
-  bermudaTriangle.setMap(map);
+//   bermudaTriangle.setMap(map);
 
-  google.maps.event.addListener(map, "click", (e) => {
-    console.log(e.latLng.lat(), e.latLng.lng()); // 14.711088942846432 -17.43886922709955
-  });
+//   google.maps.event.addListener(map, "click", (e) => {
+//     console.log(e.latLng.lat(), e.latLng.lng()); // 14.711088942846432 -17.43886922709955
+//   });
 
   google.maps.event.addListenerOnce(map, "tilesloaded", function () {
     console.log("Map is ready!");
-    new google.maps.Marker({
-      position: position,
-      map,
-    });
+    // new google.maps.Marker({
+    //   position: position,
+    //   map,
+    // });
     getGeolocation();
   });
 }
@@ -65,19 +63,22 @@ function getGeolocation() {
           bermudaTriangle
         );
 
-        new google.maps.Marker({
-          position: { lat: latitude, lng: longitude },
-          map,
-        });
+        // new google.maps.Marker({
+        //   position: { lat: latitude, lng: longitude },
+        //   map,
+        // });
 
-        alert(
-          resultColor
-            ? "you are inside the polygon"
-            : "you are outside the polygon"
-        );
+        // alert(
+        //   resultColor
+        //     ? "you are inside the polygon"
+        //     : "you are outside the polygon"
+        // );
 
         if (resultColor) {
           startInitiBarCode();
+        } else {
+            console.log("You are outside the polygon");
+            myDiv.innerText = "You are outside the polygon";
         }
       },
       function (error) {
@@ -90,7 +91,7 @@ function getGeolocation() {
   }
 }
 
-let myDiv = document.getElementById("result");
+
 
 function startInitiBarCode(params) {
   Quagga.init(
