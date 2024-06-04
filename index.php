@@ -1,13 +1,20 @@
 <html>
   <head>
     <title>Geolocation</title>
+    <script src="quagga.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script type="module" src="./index.js"></script>
   </head>
   <body>
     <div id="map"></div>
+
+    <main>
+        <div id = "result" class="info-message">
+            Please try scanning to see the result.
+        </div>
+        <div id="content"></div>
+    </main>
 
     <!-- 
       The `defer` attribute causes the script to execute after the full HTML

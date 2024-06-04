@@ -6,25 +6,15 @@ let map, infoWindow, bermudaTriangle;
 // 14.71108245715983 -17.438867066467555
 const position = { lat: 14.71179088936056, lng: -17.440056693589785 };
 async function initMap() {
-  const google = await new Promise((resolve) => {
-    if (window.google) {
-      resolve(window.google);
-    } else {
-      window.initMap = () => {
-        resolve(window.google);
-      };
-    }
-  });
-
   map = new google.maps.Map(document.getElementById("map"), {
     center: position,
     zoom: 20,
   });
 
-//   14.71179088936056 -17.440056693589785
-// 14.71190828023492 -17.43994068804989
-// 14.711778566557939 -17.439800542628863
-// 14.711657932769146 -17.43992258313904
+  //   14.71179088936056 -17.440056693589785
+  // 14.71190828023492 -17.43994068804989
+  // 14.711778566557939 -17.439800542628863
+  // 14.711657932769146 -17.43992258313904
 
   const triangleCoords = [
     { lat: 14.71179088936056, lng: -17.440056693589785 },
@@ -50,32 +40,12 @@ async function initMap() {
 
   google.maps.event.addListenerOnce(map, "tilesloaded", function () {
     console.log("Map is ready!");
-    
-    // const resultColor = google.maps.geometry.poly.containsLocation(
-    //   position,
-    //   bermudaTriangle
-    // );
-
     new google.maps.Marker({
-        position:  position,
-        map,
-      });
-
-
-  
+      position: position,
+      map,
+    });
     getGeolocation();
   });
-
-  //  getGeolocation();
-
-  //   setTimeout(function () {
-  // const resultColor = google.maps.geometry.poly.containsLocation(
-  //   position,
-  //   bermudaTriangle
-  // );
-
-  //     console.log(resultColor);
-  //   }, 5000);
 }
 
 window.initMap = initMap;
@@ -96,12 +66,19 @@ function getGeolocation() {
         );
 
         new google.maps.Marker({
-            position:  { lat: latitude, lng: longitude },
-            map,
-          });
+          position: { lat: latitude, lng: longitude },
+          map,
+        });
 
-          alert(resultColor ? 'you are inside the polygon' : 'you are outside the polygon');
-        console.log(resultColor);
+        alert(
+          resultColor
+            ? "you are inside the polygon"
+            : "you are outside the polygon"
+        );
+
+        if (resultColor) {
+          startInitiBarCode();
+        }
       },
       function (error) {
         console.error(error);
@@ -111,4 +88,81 @@ function getGeolocation() {
   } else {
     console.error("Geolocation is not supported by this browser.");
   }
+}
+
+let myDiv = document.getElementById("result");
+
+function startInitiBarCode(params) {
+  Quagga.init(
+    {
+      inputStream: {
+        name: "Live",
+        type: "LiveStream",
+        target: document.getElementById("content"),
+        constraints: {
+          width: 640,
+          height: 480,
+          facingMode: "environment",
+        },
+      },
+      locator: {
+        patchSize: "medium",
+        halfSample: true,
+      },
+      numOfWorkers: navigator.hardwareConcurrency || 4,
+      decoder: {
+        readers: [
+          "code_128_reader",
+          "ean_reader",
+          "ean_8_reader",
+          "code_39_reader",
+          "code_39_vin_reader",
+          "codabar_reader",
+          "upc_reader",
+          "upc_e_reader",
+          "i2of5_reader",
+          "2of5_reader",
+          "code_93_reader",
+        ],
+      },
+      debug: {
+        showCanvas: false,
+        drawBoundingBox: true,
+        showFrequency: false,
+        drawScanline: false,
+        showPattern: false,
+      },
+      locate: true,
+    },
+    function (err) {
+      if (err) {
+        //   myDiv.innerHTML = "Some error for Quagga" + err;
+        console.error(err);
+        alert("Error: No barcode detected. Try again");
+        myDiv.innerText = "Error: No barcode detected. Try again";
+        return;
+      }
+      Quagga.start();
+      // myDiv.innerHTML = "Quagga is started";
+    }
+  );
+}
+let barrCodeIsDetected = false;
+
+function handleDetect(result) {
+  Quagga.stop();
+  barrCodeIsDetected = true;
+  let userResponse = confirm(
+    "Barcode detected: " +
+      result.codeResult.code +
+      "\nDo you want to continue scanning?"
+  );
+
+  if (userResponse) {
+    //alert("Scanning ended.");
+    startInitiBarCode();
+  }
+  myDiv.innerHTML = "The detected barcode is: " + result.codeResult.code;
+  //   barrCodeIsDetected = false;
+  return;
 }
