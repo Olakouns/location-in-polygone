@@ -50,7 +50,7 @@ function getGeolocation() {
       function (position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
-        // console.log(position.coords);
+        console.log(position.coords);
         // window.initMap = initMap;
 
         const resultColor = google.maps.geometry.poly.containsLocation(
@@ -80,7 +80,8 @@ function getGeolocation() {
       function (error) {
         console.error(error);
         // console.error('Error occurred. Error code: ' + error.code);
-      }
+      },
+      { timeout: 5000, maximumAge: 0 } 
     );
   } else {
     console.error("Geolocation is not supported by this browser.");
