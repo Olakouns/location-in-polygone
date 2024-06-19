@@ -3,16 +3,16 @@
  * that contains the map. 
  */
 #map {
-  height: 0%;
-  width: 0%;
+  height: 5%;
+  width: 50%;
 }
 
 /* 
    * Optional: Makes the sample page fill the window. 
    */
-canvas {
+/* canvas {
   display: none;
-}
+} */
 
 body {
   height: 100vh;

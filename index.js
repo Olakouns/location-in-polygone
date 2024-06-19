@@ -9,10 +9,10 @@ async function initMap() {
   });
 
   const triangleCoords = [
-    { lat: 14.71179088936056, lng: -17.440056693589785 },
-    { lat: 14.711909888790986, lng: -17.43993906330747 },
-    { lat: 14.711778566557939, lng: -17.439800542628863 },
-    { lat: 14.711657932769146, lng: -17.43992258313904 },
+    { lat: 14.711911055175259, lng: -17.439940074198  },
+    { lat: 14.711781990070994, lng: -17.43980059932768 },
+    { lat: 14.711662653424268, lng: -17.439920628182424 },
+    { lat: 14.711792367167636, lng: -17.44006010305274 },
   ];
   bermudaTriangle = new google.maps.Polygon({
     paths: triangleCoords,
@@ -24,7 +24,7 @@ async function initMap() {
   });
 
   //   console.log(bermudaTriangle);
-  //   bermudaTriangle.setMap(map);
+    bermudaTriangle.setMap(map);
 
   //   google.maps.event.addListener(map, "click", (e) => {
   //     console.log(e.latLng.lat(), e.latLng.lng()); // 14.711088942846432 -17.43886922709955
